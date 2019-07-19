@@ -17,11 +17,10 @@ public class VRMCollider : MonoBehaviour
         Transform col;
         //dataのサイズを元にコライダをparentオブジェクトにセットアップする
         if (type == ColliderType.TYPE2D)
-        {
             col = Instantiate(ColliderObj2D, parent.position + new Vector3(0, data.modelheight, 0), parent.rotation, parent);
-        }
         else
             col = Instantiate(ColliderObj3D, parent.position + new Vector3(0, data.modelheight, 0), parent.rotation, parent);
+        
 
         col.localScale = new Vector3(data.width, data.height, data.width);
 

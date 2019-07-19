@@ -6,11 +6,12 @@ using VRMIO;
 #endif
 public class Sample2DGame : MonoBehaviour
 {
-#if VRMIO
-    private VRMIOImporter vrmImporter;
 
     [SerializeField]
     private Canvas LoadingCanvas;
+
+#if VRMIO
+    private VRMIOImporter vrmImporter;
 
     // Start is called before the first frame update
     void Start()
@@ -49,5 +50,8 @@ public class Sample2DGame : MonoBehaviour
 
     }
 #endif
-
+    public void OnBackTitleButton()
+    {
+        SceneManager.LoadScene("SampleTitle");
+    }
 }
