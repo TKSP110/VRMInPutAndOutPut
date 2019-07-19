@@ -61,9 +61,6 @@ namespace VRMIO
             // VRMのメタデータを取得
             var meta = vrmContext.ReadMeta(false); //引数をTrueに変えるとサムネイルも読み込みます
 
-            //読み込めたかどうかログにモデル名を出力してみる
-            Debug.LogFormat("meta: title:{0}", meta.Title);
-
             //疑似非同期処理で読み込みます
             await vrmContext.LoadCoroutine();
             //vrmContext.Load();
