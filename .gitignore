@@ -6,7 +6,7 @@
 Assets/AssetStoreTools*
 Assets/Plugins/SimpleFileBrowser*
 Assets/UniRx.Async*
-Assets/VRM*
+Assets/VRM/*
 Assets/unity-chan!*
 
 # Visual Studio cache directory
