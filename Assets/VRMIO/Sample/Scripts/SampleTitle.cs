@@ -78,7 +78,12 @@ public class SampleTitle : MonoBehaviour
     private async UniTask createVroid(byte[] data, bool dataupdate)
     {
         if (model != null)
+        {
             Destroy(model);
+            //Textureなどのアセットメモリ開放
+            await Resources.UnloadUnusedAssets();
+        }
+    
 
         model = await VRMLoader.InstantiateVRM(data, Vector3.zero, Quaternion.Euler(0, 180, 0));
 

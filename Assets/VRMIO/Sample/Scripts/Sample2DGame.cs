@@ -17,6 +17,9 @@ public class Sample2DGame : MonoBehaviour
     [SerializeField]
     private Canvas LoadingCanvas;
 
+    //VRoidオブジェクトが格納される
+    private GameObject Player;
+
 #if VRMIO
     private VRMIOImporter vrmImporter;
 
@@ -36,7 +39,7 @@ public class Sample2DGame : MonoBehaviour
 
     }
 
-    private GameObject Player;
+    
 
     private async UniTask createVRM(VroidData data)
     {
@@ -100,6 +103,8 @@ public class Sample2DGame : MonoBehaviour
     private Quaternion startFrontRota;
     private void FixedUpdate()
     {
+        if (Player == null)
+            return;
         standardPosT.position = new Vector3(standardPosT.position.x, standardPosT.position.y, startrStandardPos.z);
         frontPosT.position = new Vector3(frontPosT.position.x, frontPosT.position.y, startFrontPos.z);
         standardPosT.rotation = startrStandardRota;
