@@ -8,4 +8,4 @@ WebGL,Standaloneで動作します。
 
 VRMIO.unitypackage入れたら画像のようなエディタが起動します。
 
-
+![TEST](https://github.com/TKSP110/VRMInPutAndOutPut/blob/master/Assets/VRMIO/Sprites/SampleImage.PNG)
