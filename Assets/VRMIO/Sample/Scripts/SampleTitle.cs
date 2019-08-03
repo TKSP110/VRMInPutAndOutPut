@@ -87,8 +87,10 @@ public class SampleTitle : MonoBehaviour
 
         model = await VRMLoader.InstantiateVRM(data, Vector3.zero, Quaternion.Euler(0, 180, 0));
 
+
+
         if(dataupdate)
-        S_VRMDATA.MyModel = new VroidData(data, getName(model.GetComponent<VRMMeta>().Meta.Title));
+        S_VRMDATA.MyModel = new VroidData(data, getName(model.GetComponent<VRMMeta>().Meta.Title), CalculationColliderSize(model.transform));
         
         ImportButton.interactable = true;
         SetUpColliderButton.interactable = true;
@@ -126,5 +128,69 @@ public class SampleTitle : MonoBehaviour
         if (S_VRMDATA.MyModel.vrmdata != null)
             VRMExporter.ExportVRM(S_VRMDATA.MyModel.ModelName + ".vrm", S_VRMDATA.MyModel.vrmdata);
     }
+
+    //自動コライダーサイズ設定
+    private Vector3 CalculationColliderSize(Transform vrmmodel)
+    {
+        var meshfilters = vrmmodel.GetComponentsInChildren<MeshFilter>();
+        var skins = vrmmodel.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+
+        //Mesh群の底辺と高さを求める
+        float top = 0;
+        float bottom = 0;
+        float front = 0;
+        float back = 0;
+
+        for (int i = 0; i < meshfilters.Length; i++)
+        {
+            var bound = meshfilters[i].mesh.bounds;
+            var ypos = meshfilters[i].transform.position.y;
+            var zpos = meshfilters[i].transform.position.z;
+
+            if (top < bound.max.y + ypos)
+                top = bound.max.y + ypos;
+            if (bottom > bound.min.y + ypos)
+                bottom = bound.min.y + ypos;
+
+            if (front < bound.max.z + zpos)
+                front = bound.max.z + zpos;
+            if (back > bound.min.z + zpos)
+                back = bound.min.z + zpos;
+
+        }
+
+        for (int i = 0; i < skins.Length; i++)
+        {
+            var bound = skins[i].sharedMesh.bounds;
+            var ypos = skins[i].transform.position.y;
+            var zpos = skins[i].transform.position.z;
+
+            if (top < bound.max.y + ypos)
+                top = bound.max.y + ypos;
+            if (bottom > bound.min.y + ypos)
+                bottom = bound.min.y + ypos;
+
+            if (front < bound.max.z + zpos)
+                front = bound.max.z + zpos;
+            if (back > bound.min.z + zpos)
+                back = bound.min.z + zpos;
+        }
+
+        //Mesh群の中心を求める
+        float center = (top - bottom) / 2.0f;
+
+        //コライダーサイズ
+
+        float height = top - bottom;
+
+        //太さはウェストの2/3(適当)
+        float width = (front - back) * 2.0f / 3.0f;
+
+        //DefaultCapcelの大きさに合わせる
+        return new Vector3(1 + (width - 0.5f) * 2.0f, height / 2.0f, center);
+
+    }
+
 #endif
 }
