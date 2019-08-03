@@ -47,7 +47,7 @@ namespace VRMIO
         public VroidData(byte[] bytes, string PlayerName, Vector3 sizedata)
         {
             this.ModelName = PlayerName;
-            vrmdata = null;
+            vrmdata = bytes;
             width = sizedata.x;
             height = sizedata.y;
             modelheight = sizedata.z;
